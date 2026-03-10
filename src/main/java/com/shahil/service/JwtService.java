@@ -58,17 +58,17 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // 🔹 Extract username from token
+
     public String extractUsername(String tokenName) {
         return extractClaim(tokenName, Claims::getSubject);
     }
 
-    // 🔹 Extract expiration
+
     public Date extractExpiration(String tokenName) {
         return extractClaim(tokenName, Claims::getExpiration);
     }
 
-    // 🔹 Generic method to extract claims
+
     public <T> T extractClaim(String tokenName, Function<Claims, T> claimsResolver) {
 
         Claims claims = Jwts.parserBuilder()
@@ -80,12 +80,12 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    // 🔹 Check if token expired
+
     private boolean isTokenExpired(String tokenName) {
         return extractExpiration(tokenName).before(new Date());
     }
 
-    // 🔹 Validate token
+
     public boolean validateToken(String tokenName, UserDetails userDetails) {
 
         final String username = extractUsername(tokenName);
